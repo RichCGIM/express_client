@@ -5,8 +5,8 @@ $(document).ready(function() {
 	// Get All Students
 	$('#btn-get-students').click(() => {
 		console.log('Getting all students')
-		$.get(url + '/students', (data) => {
-			console.log('data:', data);
+		$.get('http://localhost:3000/students', (res) => {
+			console.log('data:', res);
 		})
 	})
 
@@ -14,8 +14,10 @@ $(document).ready(function() {
 	$('#btn-get-student-by-id').click(() => {
 		const id = $('#student-id').val();
 		console.log(`Requesting student with id ${id}`);
-		$.get(url + `/students/${id}`, (data) => {
-			const student = Student.fromRow(data[0]);
+
+		$.get(url + `/students/${id}`, (res) => {
+			// res is an array!
+			const student = Student.fromRow(res[0]);
 			console.log('data:', student);
 		});
 	});
@@ -23,6 +25,7 @@ $(document).ready(function() {
 	// Create Student
 	$('#btn-create-student').click(() => {
 		console.log('Creating a student');
+
 		const name = $('#student-name').val();
 		const sex = $('#student-sex').val();
 		const student = new Student ('', name, sex);
@@ -38,15 +41,18 @@ $(document).ready(function() {
 	$('#btn-delete-student').click(() => {
 		console.log('Deleting a student');
 		const id = $('#student-id-delete').val();
+
 		$.ajax({
 			url: url + `/students/${id}`,
 			type: 'DELETE',
-			success: (data) => {
-			  console.log('delete response', data)
+			success: (res) => {
+			  console.log('delete response', res)
 			},
 			error: (err) => {
 				console.log('delete error', err)
 			}
 		});
 	});
+
+	// TODO, Saturday 20th do a PUT method
 });
