@@ -3,20 +3,42 @@
 <head>
 	<title>Express Client</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="scripts.js"></script>
+	<script src="student.js"></script>
+	<script src="scripts.js"></script>
 </head>
 <body>
 	<h1>Express Client!</h1>
 	<p>
 		Let's learn about <a href="https://www.w3schools.com/jquery/default.asp">jQuery</a>!
 	</p>
-
+	<hr>
+	<!-- Get All Students -->
 	<p>
-		<button id='test-button'>Test button</button>
+		<button id='btn-get-students'>Get All Students</button>
+	</p>
+	<hr>
+	<!-- Get Student By Id -->
+	<p>
+		<label>Student Id</label>
+		<input type="text" id="student-id">
+		<button id='btn-get-student-by-id'>Get Student By Id</button>
+	</p>
+	<hr>
+	<!-- Create a Student -->
+	<p>
+		<label>Student Name</label>
+		<input type="text" id="student-name">
+		<label>Student Gender</label>
+		<input type="text" id="student-sex">
+		<button id='btn-create-student'>Create Student</button>
+	</p>
+	<hr>
+	<!-- Delete a Student -->
+	<p>
+		<label>Student Id</label>
+		<input type="text" id="student-id-delete">
+		<button id='btn-delete-student'>Delete By Id</button>
 	</p>
 
-		<p>
-		<button id='server-button'>Get From Server</button>
-	</p>
 </body>
 </html>
