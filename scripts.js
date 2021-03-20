@@ -5,12 +5,15 @@ $(document).ready(function() {
 	// Get All Students
 	$('#btn-get-students').click(() => {
 		console.log('Getting all students')
+
 		$.get('http://localhost:3000/students', (res) => {
 			console.log('data:', res);
 		})
+
+		console.log('This is after the request to get all students!')
 	})
 
-	// Get All Students
+	// Get a student
 	$('#btn-get-student-by-id').click(() => {
 		const id = $('#student-id').val();
 		console.log(`Requesting student with id ${id}`);
@@ -20,6 +23,7 @@ $(document).ready(function() {
 			const student = Student.fromRow(res[0]);
 			console.log('data:', student);
 		});
+
 	});
 
 	// Create Student
@@ -35,6 +39,25 @@ $(document).ready(function() {
 		$.post(url + '/students', student, (res) => {
 			console.log("Created ", res)
 		});
+
+		
+	});
+
+	// Login
+	$('#login').click(() => {
+		const username = $('#username').val();
+		const password = $('#password').val();
+
+		const loginRequest = new LoginRequest(username, password);
+
+		$.post('yourserver/login', loginRequest, (res) => {
+			if (res === true) {
+				// move one
+			} else {
+				// show some error
+			}
+		})
+
 	});
 
 	// Delete Student
@@ -54,5 +77,27 @@ $(document).ready(function() {
 		});
 	});
 
-	// TODO, Saturday 20th do a PUT method
+	// Update a student
+	$('#btn-modify-student').click(() => {
+		console.log('Modifying a student');
+
+		const name = $('#student-name-put').val();
+		const sex = $('#student-sex-put').val();
+		const id = $('#student-id-put').val();
+		const student = new Student (id, name, sex);
+
+		console.log(student);
+
+		$.ajax({
+			url: url + `/students/${id}`,
+			type: 'PUT',
+			data: student,
+			success: (res) => {
+			  console.log('put response', res)
+			},
+			error: (err) => {
+				console.log('put error', err)
+			}
+		});
+	});
 });
