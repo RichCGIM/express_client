@@ -1,4 +1,5 @@
 const url = 'http://localhost:3000';
+const _studentIdKey = 'studentId';
 
 $(document).ready(function() {
 
@@ -39,8 +40,6 @@ $(document).ready(function() {
 		$.post(url + '/students', student, (res) => {
 			console.log("Created ", res)
 		});
-
-		
 	});
 
 	// Login
@@ -100,4 +99,38 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	// Go To Profile With Local Storage
+	$('#btn-profile-student-storage').click(() => {
+		const id = $('#student-id-profile').val();
+		console.log(`Setting up local storage for student ${id}.`);
+
+		// Get the local storage object, and set id
+		const localStorage = window.localStorage;
+		localStorage.setItem(_studentIdKey, id);
+
+		window.location.href = `profile.html?id=${id}`
+	});
 });
+
+
+function getStudentFromStorage() {
+	const idFromStorage =  window.localStorage.getItem(_studentIdKey);
+	console.log(idFromStorage);
+
+	const params = this.getUrlVars();
+	console.log(params['id']);
+
+	$.get(url + `/students/${idFromStorage}`, (res) => {
+		const student = Student.fromRow(res[0]);
+		$('#student-info').text(student.toString())
+	});
+}
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}

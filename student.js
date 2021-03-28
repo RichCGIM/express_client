@@ -10,6 +10,6 @@ class Student {
     }
 
 	toString() {
-		console.log(`Id [${id}] Name [${name}] Sex [${sex}]`)
+		return `Id [${this.id}] Name [${this.name}] Sex [${this.sex}]`;
 	}
 }
