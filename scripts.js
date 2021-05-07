@@ -1,16 +1,75 @@
 const url = 'http://localhost:3000';
 const _studentIdKey = 'studentId';
 
-$(document).ready(function() {
+// let x = 2;
+// console.log('x', x);
+// const y = 4;
+// console.log('y', y);
+// x = 3;
+// console.log('x', x);
+// y = 5;
+// console.log('y', y);
+
+// Arrays
+// let cars = ["Saab", "Volvo", "BMW"];
+
+// console.log(cars.includes("Ferrari"));
+// console.log(cars.includes("BMW"));
+
+// cars.forEach((car) => console.log(`I like ${car}`));
+
+// for (let i = 0; i < cars.length; i++) {
+// 	const car = cars[i];
+// 	console.log(`I like ${car}`);
+// }
+
+// Strings
+
+let string1 = "Hello World!";
+let string2 = new String("Hi there!");
+let student1 = new Student(123, 'Patricia', 'F');
+
+// console.log(string1.toUpperCase());
+// console.log(string2.toUpperCase());
+// console.log(student1.toUpperCase());
+
+// console.log(student1.favoriteFood('Pizza'));
+// console.log(string1.favoriteFood('Hotdog'));
+// console.log(string2.favoriteFood('Meatballs'));
+
+
+$(document).ready(() => {
 
 	// Get All Students
-	$('#btn-get-students').click(() => {
+	$('#btn-get-students').click(() =>  {
 		console.log('Getting all students')
 
 		$.get('http://localhost:3000/students', (res) => {
 			console.log('data:', res);
-		})
 
+			const students = [];
+
+			// const anmol = new Student(100, 'Anmol', 'F');
+			// const rich = new Student(120, 'Rich', 'M');
+
+			// const returnFromFunction = anmol.favoriteFood('indian food!');
+			// console.log(returnFromFunction);
+
+			// console.log(rich.favoriteFood('pizza'));
+
+			for (let i = 0; i < res.length; i++) {
+				const element = res[i];
+				const student = new Student(
+					element.id,
+					element.name,
+					element.sex
+				);
+
+				students.push(student);
+
+				console.log(students[i]);
+			}
+		})
 		console.log('This is after the request to get all students!')
 	})
 
@@ -24,7 +83,6 @@ $(document).ready(function() {
 			const student = Student.fromRow(res[0]);
 			console.log('data:', student);
 		});
-
 	});
 
 	// Create Student
@@ -58,6 +116,10 @@ $(document).ready(function() {
 		})
 
 	});
+
+	// CRUD operations
+	// Create	Read 	Update	 	Delete
+	// Post		Get		Put			Delete	
 
 	// Delete Student
 	$('#btn-delete-student').click(() => {
@@ -106,8 +168,8 @@ $(document).ready(function() {
 		console.log(`Setting up local storage for student ${id}.`);
 
 		// Get the local storage object, and set id
-		const localStorage = window.localStorage;
-		localStorage.setItem(_studentIdKey, id);
+		window.localStorage.setItem(_studentIdKey, id);
+		window.localStorage.setItem("another key", "some value");
 
 		window.location.href = `profile.html?id=${id}`
 	});
