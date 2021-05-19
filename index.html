@@ -5,6 +5,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="student.js"></script>
 	<script src="scripts.js"></script>
+	<style>
+		input {
+  			border: 2px solid currentcolor;
+		}
+		input:invalid {
+		border: 2px dashed red;
+		}
+		input:invalid:focus {
+		background-image: linear-gradient(pink, lightgreen);
+		}
+	</style>
 </head>
 <body>
 	<h1>Express Client!</h1>
@@ -31,7 +42,7 @@
 	<!-- Create a Student -->
 	<p>
 		<label>Student Name</label>
-		<input type="text" id="student-name">
+		<input type="text" id="student-name" minlength="2">
 		<label>Student Gender</label>
 		<input type="text" id="student-sex">
 		<button id='btn-create-student'>Create Student</button>

@@ -44,8 +44,10 @@ $(document).ready(() => {
 	$('#btn-get-students').click(() =>  {
 		console.log('Getting all students')
 
-		$.get('http://localhost:3000/students', (res) => {
-			console.log('data:', res);
+		console.log("This is before the request")
+		$.get('http://localhost:3000/students', (response) => {
+			console.log("This is when I get the response");
+			console.log('data:', response);
 
 			const students = [];
 
@@ -57,8 +59,8 @@ $(document).ready(() => {
 
 			// console.log(rich.favoriteFood('pizza'));
 
-			for (let i = 0; i < res.length; i++) {
-				const element = res[i];
+			for (let i = 0; i < response.length; i++) {
+				const element = response[i];
 				const student = new Student(
 					element.id,
 					element.name,
@@ -70,10 +72,11 @@ $(document).ready(() => {
 				console.log(students[i]);
 			}
 		})
+
 		console.log('This is after the request to get all students!')
 	})
 
-	// Get a student
+	// Get a student by id
 	$('#btn-get-student-by-id').click(() => {
 		const id = $('#student-id').val();
 		console.log(`Requesting student with id ${id}`);
@@ -90,6 +93,12 @@ $(document).ready(() => {
 		console.log('Creating a student');
 
 		const name = $('#student-name').val();
+
+		if (name.length < 2) {
+			alert("name is too short!");
+			return;
+		}
+
 		const sex = $('#student-sex').val();
 		const student = new Student ('', name, sex);
 
@@ -184,7 +193,12 @@ function getStudentFromStorage() {
 	console.log(params['id']);
 
 	$.get(url + `/students/${idFromStorage}`, (res) => {
-		const student = Student.fromRow(res[0]);
+		//const student = Student.fromRow(res[0]);
+		const student = new Student(
+			res[0].id,
+			res[0].name,
+			res[0].sex
+		);
 		$('#student-info').text(student.toString())
 	});
 }
